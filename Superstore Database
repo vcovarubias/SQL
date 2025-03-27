@@ -1,0 +1,24 @@
+#For this project I used SQL to query the Superstore database to get more information about prices, average rating, stock quantity.
+
+#Show Superstore database starting with highest in value
+SELECT * 
+FROM superstore
+ORDER BY price desc;
+
+#Show the total amount each item sold 
+SELECT SUM (price), item_name
+FROM superstore
+GROUP BY item_name;
+
+#Show the average rating for Electronics
+
+SELECT AVG (average_rating), item_name, category
+FROM superstore
+WHERE category = 'Electronics'
+GROUP BY item_name;
+
+#Show how many 'Slow Cookers' are in stock along with their price
+
+SELECT item_name, stock_quantity
+FROM superstore 
+WHERE item_name = 'Slow Cooker'
