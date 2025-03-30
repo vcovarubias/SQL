@@ -26,3 +26,34 @@ FROM bank_products
 WHERE monthly_fee = 0
 AND description LIKE '%students%'
 ;
+
+
+SELECT product_name
+, description
+FROM bank_products
+WHERE product_name ='Premium Checking'
+OR product_name ='High Yield Savings'
+OR product_name ='Platinum Credit Card'
+OR product_name ='Gold Credit Card'
+;
+
+--simplify the above query
+
+SELECT product_name, description
+FROM bank_products
+WHERE product_name IN ('Premium checking', 'High Yield Savings', 'Platinum Credit Card', 'Gold Credit Card');
+
+--show products offered for businesses
+
+SELECT *
+FROM bank_products
+WHERE product_name LIKE 'BUSINESS%'
+;
+
+-- a new customer wants something with rewards. Show the name and description for all products that have the word "reward" in either name or description
+
+SELECT product_name, description
+FROM bank_products
+WHERE product_name LIKE '%reward%'
+OR description LIKE '%reward%'
+;
