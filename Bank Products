@@ -1,0 +1,28 @@
+--The customerwould like to know what kind of accounts your bank offers. display all the bank product names
+
+SELECT 	product_name
+FROM bank_products;
+
+--This customer is interested in opening a Checking or Savings product type. 
+
+SELECT *
+FROM bank_products 
+WHERE product_type = 'Checking'
+OR product_type = 'Svaings'
+;
+
+-- The customer decided they want a savings account wth a good interest rate and no monthly fee 
+
+SELECT product_name, interest_rate
+FROM bank_products
+WHERE product_type ='Savings'
+AND monthly_fee  = 0
+AND interest_rate >= 0;
+
+-- the customer would like to sign up for a student account with no monthly fees
+
+SELECT product_name, monthly_fee, description 
+FROM bank_products
+WHERE monthly_fee = 0
+AND description LIKE '%students%'
+;
