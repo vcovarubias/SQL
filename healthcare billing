@@ -1,0 +1,38 @@
+--shows how m,uch the patient still has to pay
+
+SELECT patient_id, 
+procedure_bill-payment_received AS 'payment_remaining'
+FROM billing
+;
+
+-- shows the fraction of the payment and displays the status of the payment remaining.
+
+SELECT patient_id, procedure_bill, 
+procedure_bill/payment_received
+AS 'payment_fraction',
+CASE WHEN (payment_received/ procedure_bill)=1 THEN "PAID"
+WHEN (payment_received/procedure_bill)=0 THEN "no paymennt"
+ELSE "in progress"
+END AS payment_status
+FROM billing
+;
+
+--converts the payment fraction into percent
+
+SELECT patient_id, payment_received/procedure_bill AS payment_fraction,
+ROUND ((payment_received/procedure_bill)*100, 1) AS payment_percent
+FROM billing 
+;
+
+--displays payment percent as payment status showing the percentage of each patients payment so far 
+
+SELECT patient_id, payment_received/procedure_bill AS payment_fraction, CASE
+WHEN (payment_received/procedure_bill)=1 THEN "paid"
+WHEN (payment_received/procedure_bill)=0 THEN "no payment"
+WHEN (payment_received/procedure_bill)>=.75 THEN "75%+"
+WHEN (payment_received/procedure_bill)>=.50 THEN "50%+"
+WHEN (payment_received/procedure_bill)>=.25 THEN "25%+"
+ELSE "under 25%"
+END AS payment_status
+FROM billing
+;
