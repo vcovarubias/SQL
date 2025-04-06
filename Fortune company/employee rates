@@ -1,0 +1,37 @@
+--Which companies have healthcare benefits and at least 6 weeks of maternity leave?
+
+SELECT company_name, healthcare_benefits, maternity_leave_weeks
+FROM fortune_companies
+WHERE healthcare_benefits >=1 AND maternity_leave_weeks >=6
+ORDER BY maternity_leave_weeks desc
+;
+
+-- show the average revenue in each industry,
+
+SELECT company_name, industry, 
+ROUND (AVG(revenue), 1) AS average_revenue
+FROM fortune_companies
+GROUP BY industry
+ORDER BY average_revenue desc
+;
+
+-- which industries have a high employee retention rates?
+
+SELECT industry, avg_employee_tenure, 
+CASE WHEN avg_employee_tenure >=6.0 THEN 'high employee retention rate'
+WHEN avg_employee_tenure >=4.5 THEN 'mid employee retention rate' 
+ELSE 'low employee retention rate'
+END as empolyee_retention_rate
+FROM fortune_companies
+GROUP BY industry
+ORDER BY avg_employee_tenure desc
+;
+
+-- which companies in retail do not have high employee retention?
+
+SELECT company_name, MIN(avg_employee_tenure) AS employee_rates_decline
+FROM fortune_companies
+GROUP BY company_name
+HAVING avg_employee_tenure<=5.0
+ORDER BY avg_employee_tenure desc
+;
